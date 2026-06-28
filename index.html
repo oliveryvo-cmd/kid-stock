@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kidstok — The Internet Made By Kids</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overflow-x:hidden;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,15,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.logo{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;font-weight:600;transition:color 0.2s;}
+.nav-links a:hover{color:#fff;}
+.nav-btn{padding:8px 20px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.8rem;font-weight:900;color:#000;cursor:pointer;text-decoration:none;}
+
+/* HERO */
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,107,107,0.08) 0%,transparent 70%);}
+.hero-orbs{position:absolute;inset:0;pointer-events:none;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;}
+.orb1{width:400px;height:400px;background:#ff6b6b;top:-100px;left:-100px;}
+.orb2{width:300px;height:300px;background:#4d96ff;bottom:-50px;right:-50px;}
+.orb3{width:200px;height:200px;background:#ffd93d;top:50%;left:60%;}
+.hero-badge{display:inline-block;padding:6px 16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50px;font-size:0.7rem;font-weight:700;letter-spacing:3px;color:#aaa;margin-bottom:24px;}
+.hero h1{font-size:4rem;font-weight:900;line-height:1.1;margin-bottom:20px;max-width:800px;}
+.hero h1 span{background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:1.1rem;color:#888;max-width:600px;line-height:1.8;margin-bottom:40px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{padding:14px 36px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.9rem;font-weight:900;color:#000;cursor:pointer;letter-spacing:1px;}
+.btn-secondary{padding:14px 36px;background:transparent;border:2px solid rgba(255,255,255,0.2);border-radius:50px;font-size:0.9rem;font-weight:700;color:#fff;cursor:pointer;}
+.hero-stats{display:flex;gap:40px;margin-top:60px;flex-wrap:wrap;justify-content:center;}
+.stat{text-align:center;}
+.stat-n{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-l{font-size:0.7rem;letter-spacing:2px;color:#555;}
+
+/* FEATURES */
+.features{padding:80px 40px;max-width:1100px;margin:0 auto;}
+.section-title{font-size:0.65rem;letter-spacing:4px;color:#ff6b6b;font-weight:900;margin-bottom:12px;text-align:center;}
+.section-h{font-size:2.2rem;font-weight:900;text-align:center;margin-bottom:60px;}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.feature-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px;transition:transform 0.2s,border-color 0.2s;}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.2);}
+.feature-icon{font-size:2.5rem;margin-bottom:16px;}
+.feature-title{font-size:1rem;font-weight:900;margin-bottom:8px;}
+.feature-desc{font-size:0.8rem;color:#666;line-height:1.8;}
+
+/* FEED PREVIEW */
+.feed-section{padding:80px 40px;background:rgba(255,255,255,0.02);}
+.feed-inner{max-width:1100px;margin:0 auto;}
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+.post-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:transform 0.2s;}
+.post-card:hover{transform:translateY(-4px);}
+.post-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.post-body{padding:16px;}
+.post-user{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.post-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:900;color:#000;}
+.post-name{font-size:0.75rem;font-weight:700;}
+.post-badge{font-size:0.5rem;letter-spacing:1px;padding:2px 6px;border-radius:50px;font-weight:900;}
+.post-text{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:12px;}
+.post-actions{display:flex;gap:16px;}
+.post-action{font-size:0.7rem;color:#555;cursor:pointer;transition:color 0.2s;}
+.post-action:hover{color:#ff6b6b;}
+
+/* WIKI PREVIEW */
+.wiki-section{padding:80px 40px;max-width:1100px;margin:0 auto;}
+.wiki-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+.wiki-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;cursor:pointer;transition:all 0.2s;}
+.wiki-card:hover{border-color:rgba(77,150,255,0.5);background:rgba(77,150,255,0.05);}
+.wiki-emoji{font-size:2rem;margin-bottom:12px;}
+.wiki-title{font-size:0.95rem;font-weight:900;margin-bottom:6px;}
+.wiki-desc{font-size:0.75rem;color:#555;line-height:1.7;}
+.wiki-author{font-size:0.6rem;color:#333;margin-top:10px;letter-spacing:1px;}
+
+/* INCLUSION SECTION */
+.inclusion{padding:80px 40px;background:linear-gradient(135deg,rgba(255,107,107,0.05),rgba(77,150,255,0.05));}
+.inclusion-inner{max-width:800px;margin:0 auto;text-align:center;}
+.inclusion h2{font-size:2.2rem;font-weight:900;margin-bottom:20px;line-height:1.3;}
+.inclusion p{font-size:1rem;color:#777;line-height:1.9;margin-bottom:40px;}
+.inclusion-badges{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.inc-badge{padding:10px 20px;border-radius:50px;font-size:0.75rem;font-weight:900;letter-spacing:1px;}
+
+/* CTA */
+.cta{padding:100px 40px;text-align:center;}
+.cta h2{font-size:2.8rem;font-weight:900;margin-bottom:16px;}
+.cta p{color:#666;margin-bottom:40px;font-size:1rem;}
+
+/* FOOTER */
+footer{padding:40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+footer p{font-size:0.7rem;color:#333;letter-spacing:2px;}
+footer span{background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Kidstok</div>
+  <div class="nav-links">
+    <a href="feed.html">Feed</a>
+    <a href="wiki.html">Wiki</a>
+    <a href="explore.html">Explore</a>
+    <a href="safety.html">Safety</a>
+    <a href="signup.html" class="nav-btn">Join Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge">✦ MADE BY KIDS · FOR KIDS ✦</div>
+    <h1>The Internet<br><span>Built for Kids.</span></h1>
+    <p>Post videos, gameplay clips, and ideas. Follow friends. Learn from a wiki made by kids. 100% safe, 100% kind, 100% yours.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="window.location.href='signup.html'">🚀 Join Kidstok — It's Free</button>
+      <button class="btn-secondary" onclick="document.querySelector('.features').scrollIntoView({behavior:'smooth'})">See How It Works</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">KID SAFE</div></div>
+      <div class="stat"><div class="stat-n">0</div><div class="stat-l">BULLYING ALLOWED</div></div>
+      <div class="stat"><div class="stat-n">∞</div><div class="stat-l">COOL STUFF TO FIND</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-title">WHAT YOU CAN DO</div>
+  <h2 class="section-h">Everything. Made for You.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎮</div>
+      <div class="feature-title">Post Gameplay</div>
+      <div class="feature-desc">Share your best clips, wins, and funny moments from any game. Get followers who love the same games.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <div class="feature-title">Kids Wikipedia</div>
+      <div class="feature-desc">Search anything — games, animals, science, history — explained by kids in a way that actually makes sense.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <div class="feature-title">Real Profiles</div>
+      <div class="feature-desc">Make your profile, pick your avatar, get followers. Show the world who you are and what you're into.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-title">Zero Bullying</div>
+      <div class="feature-desc">Every post goes through kid-safe filters. Mean comments get removed instantly. Only good vibes here.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">♿</div>
+      <div class="feature-title">Everyone Included</div>
+      <div class="feature-desc">Built for ALL kids — including kids with disabilities. Big text, screen reader support, and a community that celebrates everyone.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <div class="feature-title">Kid Run</div>
+      <div class="feature-desc">Every page, every wiki article, every post — made by real kids. No adults running the show. This is your internet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEED PREVIEW -->
+<section class="feed-section">
+  <div class="feed-inner">
+    <div class="section-title">THE FEED</div>
+    <h2 class="section-h">What Kids Are Posting</h2>
+    <div class="feed-grid">
+      <div class="post-card">
+        <div class="post-img" style="background:linear-gradient(135deg,#0a0a1a,#1a0a2a);">🎮</div>
+        <div class="post-body">
+          <div class="post-user">
+            <div class="post-avatar" style="background:#ff6b6b;">JK</div>
+            <div>
+              <div class="post-name">JakeKing09</div>
+              <div class="post-badge" style="background:rgba(255,107,107,0.2);color:#ff6b6b;">🎮 GAMER</div>
+            </div>
+          </div>
+          <div class="post-text">Just hit level 50 in Roblox Gods of Now!! The lightning power is so OP 🔥⚡</div>
+          <div class="post-actions">
+            <div class="post-action">❤️ 142</div>
+            <div class="post-action">💬 38</div>
+            <div class="post-action">🔁 12</div>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-img" style="background:linear-gradient(135deg,#0a1a0a,#1a2a0a);">🐋</div>
+        <div class="post-body">
+          <div class="post-user">
+            <div class="post-avatar" style="background:#6bcb77;">ML</div>
+            <div>
+              <div class="post-name">MariaLuna</div>
+              <div class="post-badge" style="background:rgba(107,203,119,0.2);color:#6bcb77;">🌿 NATURE KID</div>
+            </div>
+          </div>
+          <div class="post-text">Did you know orcas are actually dolphins not whales?? I wrote about it on KidsWiki check it out!</div>
+          <div class="post-actions">
+            <div class="post-action">❤️ 89</div>
+            <div class="post-action">💬 21</div>
+            <div class="post-action">🔁 44</div>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-img" style="background:linear-gradient(135deg,#1a0a0a,#2a1a0a);">🎨</div>
+        <div class="post-body">
+          <div class="post-user">
+            <div class="post-avatar" style="background:#ffd93d;">OV</div>
+            <div>
+              <div class="post-name">OliverVo</div>
+              <div class="post-badge" style="background:rgba(255,217,61,0.2);color:#ffd93d;">⭐ CREATOR</div>
+            </div>
+          </div>
+          <div class="post-text">Made my own trading card game called KidForever Cards! 9 characters, AI art, selling them at school for $5 💰</div>
+          <div class="post-actions">
+            <div class="post-action">❤️ 387</div>
+            <div class="post-action">💬 94</div>
+            <div class="post-action">🔁 201</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIKI PREVIEW -->
+<section class="wiki-section">
+  <div class="section-title">KIDSWIKI</div>
+  <h2 class="section-h">Learn Anything. Written By Kids.</h2>
+  <div class="wiki-grid">
+    <div class="wiki-card">
+      <div class="wiki-emoji">🎮</div>
+      <div class="wiki-title">How Roblox Works</div>
+      <div class="wiki-desc">Everything about Roblox — how to make a game, what Robux is, best games to play in 2026.</div>
+      <div class="wiki-author">WRITTEN BY JAKEK · 847 READS</div>
+    </div>
+    <div class="wiki-card">
+      <div class="wiki-emoji">🐋</div>
+      <div class="wiki-title">Orcas (Killer Whales)</div>
+      <div class="wiki-desc">Why orcas are actually dolphins, how smart they are, and why they're the coolest animals in the ocean.</div>
+      <div class="wiki-author">WRITTEN BY MARIALUNA · 1,204 READS</div>
+    </div>
+    <div class="wiki-card">
+      <div class="wiki-emoji">🧠</div>
+      <div class="wiki-title">What is Tourette Syndrome</div>
+      <div class="wiki-desc">A guide for kids about Tourette's — what it is, what it feels like, and why it makes you stronger not weaker.</div>
+      <div class="wiki-author">WRITTEN BY OLIVERVO · 2,891 READS</div>
+    </div>
+    <div class="wiki-card">
+      <div class="wiki-emoji">⭐</div>
+      <div class="wiki-title">Star Wars Explained</div>
+      <div class="wiki-desc">The whole Star Wars timeline explained simply — no confusing stuff, just the good parts.</div>
+      <div class="wiki-author">WRITTEN BY LUKEX · 3,112 READS</div>
+    </div>
+    <div class="wiki-card">
+      <div class="wiki-emoji">🚀</div>
+      <div class="wiki-title">How to Start a Business as a Kid</div>
+      <div class="wiki-desc">Real steps any kid can take to build something and make money — from trading cards to Roblox games.</div>
+      <div class="wiki-author">WRITTEN BY OLIVERVO · 5,441 READS</div>
+    </div>
+    <div class="wiki-card">
+      <div class="wiki-emoji">♿</div>
+      <div class="wiki-title">Living With a Disability</div>
+      <div class="wiki-desc">Stories from real kids about what it's like and how they do amazing things every single day.</div>
+      <div class="wiki-author">WRITTEN BY COMMUNITY · 4,208 READS</div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUSION -->
+<section class="inclusion">
+  <div class="inclusion-inner">
+    <h2>Every Kid Belongs Here. <span style="background:linear-gradient(135deg,#ff6b6b,#ffd93d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Every Single One.</span></h2>
+    <p>Kidstok was built because the internet wasn't made for kids — especially kids who are different. Whether you have a disability, speak a different language, or just feel like nobody gets you — you belong here. This is your place.</p>
+    <div class="inclusion-badges">
+      <div class="inc-badge" style="background:rgba(255,107,107,0.15);color:#ff6b6b;">♿ DISABILITY FRIENDLY</div>
+      <div class="inc-badge" style="background:rgba(77,150,255,0.15);color:#4d96ff;">🌍 ALL LANGUAGES</div>
+      <div class="inc-badge" style="background:rgba(107,203,119,0.15);color:#6bcb77;">🛡️ BULLY FREE ZONE</div>
+      <div class="inc-badge" style="background:rgba(255,217,61,0.15);color:#ffd93d;">⭐ EVERY KID IS A CREATOR</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to Join?</h2>
+  <p>Kidstok is free forever. Always will be.</p>
+  <button class="btn-primary" style="font-size:1rem;padding:16px 48px;" onclick="window.location.href='signup.html'">🚀 Create Your Account</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:1.2rem;margin-bottom:12px;">Kidstok</div>
+  <p>© 2026 <span>KIDSTOK</span> · MADE BY KIDS · FOR KIDS · ALWAYS FREE · ALWAYS SAFE</p>
+</footer>
+
+</body>
+</html>

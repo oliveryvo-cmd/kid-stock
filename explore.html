@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore — Kidstok</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;color:#fff;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,15,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.logo{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;font-weight:600;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#fff;}
+.nav-btn{padding:8px 20px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.8rem;font-weight:900;color:#000;cursor:pointer;text-decoration:none;}
+.hero{text-align:center;padding:60px 40px 40px;}
+.hero h1{font-size:2.5rem;font-weight:900;margin-bottom:12px;}
+.hero h1 span{background:linear-gradient(135deg,#ffd93d,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:#666;font-size:0.9rem;margin-bottom:0;}
+.main{max-width:1100px;margin:0 auto;padding:20px 40px 60px;}
+.section-label{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:16px;}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto;gap:16px;margin-bottom:48px;}
+.bento-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;justify-content:flex-end;}
+.bento-card:hover{transform:scale(1.02);}
+.bento-card.big{grid-column:span 2;grid-row:span 2;padding:40px;}
+.bento-card.tall{grid-row:span 2;}
+.bento-emoji{font-size:2.5rem;margin-bottom:12px;}
+.bento-card.big .bento-emoji{font-size:5rem;margin-bottom:24px;}
+.bento-title{font-size:0.85rem;font-weight:900;}
+.bento-card.big .bento-title{font-size:1.4rem;}
+.bento-sub{font-size:0.7rem;color:#555;margin-top:4px;}
+.creators{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:48px;}
+.creator-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.creator-card:hover{border-color:rgba(255,217,61,0.4);}
+.c-avatar{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:#000;}
+.c-name{font-size:0.8rem;font-weight:900;margin-bottom:4px;}
+.c-handle{font-size:0.65rem;color:#444;margin-bottom:12px;}
+.c-badge{font-size:0.55rem;letter-spacing:1px;padding:3px 10px;border-radius:50px;font-weight:900;display:inline-block;}
+.follow-btn{width:100%;margin-top:12px;padding:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;font-size:0.7rem;font-weight:900;color:#fff;cursor:pointer;transition:all 0.2s;}
+.follow-btn:hover{background:linear-gradient(135deg,#ff6b6b,#ffd93d);color:#000;border-color:transparent;}
+.challenges{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.challenge{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:center;}
+.ch-icon{font-size:2.5rem;flex-shrink:0;}
+.ch-title{font-size:0.9rem;font-weight:900;margin-bottom:4px;}
+.ch-desc{font-size:0.72rem;color:#666;line-height:1.6;margin-bottom:10px;}
+.ch-count{font-size:0.65rem;color:#ffd93d;font-weight:700;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'">Kidstok</div>
+  <div class="nav-links">
+    <a href="feed.html">Feed</a>
+    <a href="wiki.html">Wiki</a>
+    <a href="explore.html" class="active">Explore</a>
+    <a href="safety.html">Safety</a>
+    <a href="signup.html" class="nav-btn">Join Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Ex<span>plore</span></h1>
+  <p>Discover new creators, challenges, and communities built by kids around the world.</p>
+</div>
+
+<div class="main">
+  <div class="section-label">DISCOVER TOPICS</div>
+  <div class="bento">
+    <div class="bento-card big" style="background:linear-gradient(135deg,rgba(255,107,107,0.12),rgba(255,217,61,0.06));">
+      <div class="bento-emoji">🎮</div>
+      <div class="bento-title">Gaming Hub</div>
+      <div class="bento-sub">Clips, tips, and reviews from kid gamers</div>
+    </div>
+    <div class="bento-card" style="background:rgba(107,203,119,0.07);">
+      <div class="bento-emoji">🎨</div>
+      <div class="bento-title">Art Gallery</div>
+      <div class="bento-sub">Kid-made artwork</div>
+    </div>
+    <div class="bento-card" style="background:rgba(77,150,255,0.07);">
+      <div class="bento-emoji">🚀</div>
+      <div class="bento-title">Science Zone</div>
+      <div class="bento-sub">Experiments & discoveries</div>
+    </div>
+    <div class="bento-card tall" style="background:rgba(255,217,61,0.07);">
+      <div class="bento-emoji">🐾</div>
+      <div class="bento-title">Animal World</div>
+      <div class="bento-sub">Pets, wildlife, and fun facts</div>
+    </div>
+    <div class="bento-card" style="background:rgba(77,150,255,0.07);">
+      <div class="bento-emoji">📚</div>
+      <div class="bento-title">Study Buddy</div>
+      <div class="bento-sub">Homework help from kids</div>
+    </div>
+    <div class="bento-card" style="background:rgba(107,203,119,0.07);">
+      <div class="bento-emoji">⚽</div>
+      <div class="bento-title">Sports</div>
+      <div class="bento-sub">Highlights and teams</div>
+    </div>
+    <div class="bento-card" style="background:rgba(255,107,107,0.07);">
+      <div class="bento-emoji">🎵</div>
+      <div class="bento-title">Music</div>
+      <div class="bento-sub">Kid musicians & playlists</div>
+    </div>
+  </div>
+
+  <div class="section-label">TOP CREATORS THIS WEEK</div>
+  <div class="creators">
+    <div class="creator-card">
+      <div class="c-avatar" style="background:#ffd93d;">OV</div>
+      <div class="c-name">OliverVo</div>
+      <div class="c-handle">@olivervo</div>
+      <div class="c-badge" style="background:rgba(255,217,61,0.2);color:#ffd93d;">⭐ TOP CREATOR</div>
+      <button class="follow-btn">+ Follow</button>
+    </div>
+    <div class="creator-card">
+      <div class="c-avatar" style="background:#ff6b6b;">JK</div>
+      <div class="c-name">JakeKing09</div>
+      <div class="c-handle">@jakeking09</div>
+      <div class="c-badge" style="background:rgba(255,107,107,0.2);color:#ff6b6b;">🎮 GAMER</div>
+      <button class="follow-btn">+ Follow</button>
+    </div>
+    <div class="creator-card">
+      <div class="c-avatar" style="background:#6bcb77;">ML</div>
+      <div class="c-name">MariaLuna</div>
+      <div class="c-handle">@marialuna</div>
+      <div class="c-badge" style="background:rgba(107,203,119,0.2);color:#6bcb77;">🌿 NATURE KID</div>
+      <button class="follow-btn">+ Follow</button>
+    </div>
+    <div class="creator-card">
+      <div class="c-avatar" style="background:#4d96ff;">ZR</div>
+      <div class="c-name">ZoeRocks</div>
+      <div class="c-handle">@zoerocks</div>
+      <div class="c-badge" style="background:rgba(77,150,255,0.2);color:#4d96ff;">♿ ADVOCATE</div>
+      <button class="follow-btn">+ Follow</button>
+    </div>
+    <div class="creator-card">
+      <div class="c-avatar" style="background:#ff6b6b;">CK</div>
+      <div class="c-name">CosmicKai</div>
+      <div class="c-handle">@cosmickai</div>
+      <div class="c-badge" style="background:rgba(77,150,255,0.2);color:#4d96ff;">🚀 SPACE KID</div>
+      <button class="follow-btn">+ Follow</button>
+    </div>
+  </div>
+
+  <div class="section-label">ACTIVE CHALLENGES</div>
+  <div class="challenges">
+    <div class="challenge">
+      <div class="ch-icon">🃏</div>
+      <div>
+        <div class="ch-title">Design Your Own Card Challenge</div>
+        <div class="ch-desc">Create your own trading card character with a name, power, and HP. Post it to enter!</div>
+        <div class="ch-count">🔥 1,248 entries</div>
+      </div>
+    </div>
+    <div class="challenge">
+      <div class="ch-icon">🔬</div>
+      <div>
+        <div class="ch-title">Cool Science Fact of the Day</div>
+        <div class="ch-desc">Share one wild science fact you just learned. The more surprising, the better.</div>
+        <div class="ch-count">🔥 3,901 entries</div>
+      </div>
+    </div>
+    <div class="challenge">
+      <div class="ch-icon">🎨</div>
+      <div>
+        <div class="ch-title">Draw Your Power Challenge</div>
+        <div class="ch-desc">If you had a superpower, what would it look like? Draw it and share!</div>
+        <div class="ch-count">🔥 2,114 entries</div>
+      </div>
+    </div>
+    <div class="challenge">
+      <div class="ch-icon">💙</div>
+      <div>
+        <div class="ch-title">Kindness Post — Say Something Nice</div>
+        <div class="ch-desc">Post something kind about another kid on Kidstok. Spread good vibes!</div>
+        <div class="ch-count">🔥 8,772 entries</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

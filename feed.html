@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feed — Kidstok</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;color:#fff;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,15,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.logo{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;font-weight:600;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#fff;}
+.nav-btn{padding:8px 20px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.8rem;font-weight:900;color:#000;cursor:pointer;text-decoration:none;}
+.layout{display:grid;grid-template-columns:240px 1fr 300px;gap:24px;max-width:1200px;margin:0 auto;padding:24px 40px;}
+.sidebar{position:sticky;top:80px;height:fit-content;}
+.sidebar-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;}
+.sidebar-title{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:12px;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);}
+.sidebar-item:last-child{border:none;}
+.sidebar-icon{font-size:1.2rem;}
+.sidebar-label{font-size:0.8rem;font-weight:600;color:#aaa;}
+.feed-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.tab{padding:12px 24px;font-size:0.8rem;font-weight:700;color:#555;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.tab.active{color:#ff6b6b;border-bottom-color:#ff6b6b;}
+.post{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;}
+.post-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#000;flex-shrink:0;}
+.post-info{flex:1;}
+.post-name{font-size:0.85rem;font-weight:900;}
+.post-meta{font-size:0.7rem;color:#444;}
+.post-badge{display:inline-block;font-size:0.5rem;letter-spacing:1px;padding:2px 8px;border-radius:50px;font-weight:900;margin-left:6px;}
+.post-text{font-size:0.85rem;color:#ccc;line-height:1.7;margin-bottom:14px;}
+.post-media{border-radius:12px;overflow:hidden;margin-bottom:14px;height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
+.post-actions{display:flex;gap:20px;}
+.action-btn{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:#555;cursor:pointer;transition:color 0.2s;background:none;border:none;}
+.action-btn:hover{color:#ff6b6b;}
+.trending{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;position:sticky;top:80px;}
+.trending-title{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:16px;}
+.trend{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;}
+.trend:last-child{border:none;}
+.trend-tag{font-size:0.75rem;font-weight:900;color:#ff6b6b;}
+.trend-count{font-size:0.65rem;color:#444;margin-top:2px;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'">Kidstok</div>
+  <div class="nav-links">
+    <a href="feed.html" class="active">Feed</a>
+    <a href="wiki.html">Wiki</a>
+    <a href="explore.html">Explore</a>
+    <a href="safety.html">Safety</a>
+    <a href="signup.html" class="nav-btn">Join Free</a>
+  </div>
+</nav>
+
+<div class="layout">
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">BROWSE</div>
+      <div class="sidebar-item"><div class="sidebar-icon">🏠</div><div class="sidebar-label">Home Feed</div></div>
+      <div class="sidebar-item"><div class="sidebar-icon">🎮</div><div class="sidebar-label">Gaming</div></div>
+      <div class="sidebar-item"><div class="sidebar-icon">🎨</div><div class="sidebar-label">Art & Create</div></div>
+      <div class="sidebar-item"><div class="sidebar-icon">🐾</div><div class="sidebar-label">Animals</div></div>
+      <div class="sidebar-item"><div class="sidebar-icon">🚀</div><div class="sidebar-label">Science</div></div>
+      <div class="sidebar-item"><div class="sidebar-icon">⭐</div><div class="sidebar-label">Top Posts</div></div>
+    </div>
+  </div>
+
+  <!-- FEED -->
+  <div>
+    <div class="feed-tabs">
+      <div class="tab active">For You</div>
+      <div class="tab">Following</div>
+      <div class="tab">Gaming</div>
+      <div class="tab">New</div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar" style="background:#ffd93d;">OV</div>
+        <div class="post-info">
+          <div class="post-name">OliverVo <span class="post-badge" style="background:rgba(255,217,61,0.2);color:#ffd93d;">⭐ CREATOR</span></div>
+          <div class="post-meta">2 hours ago · Ladera Ranch, CA</div>
+        </div>
+      </div>
+      <div class="post-text">Made my own trading card game called KidForever Cards! 9 characters with AI artwork, rarity levels, and moves. Already selling them at school for $5 a pack 💰 Who wants one??</div>
+      <div class="post-media" style="background:linear-gradient(135deg,#1a0e00,#2a1800);">🃏</div>
+      <div class="post-actions">
+        <button class="action-btn">❤️ 387</button>
+        <button class="action-btn">💬 94</button>
+        <button class="action-btn">🔁 201</button>
+        <button class="action-btn">🔖 Save</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar" style="background:#ff6b6b;">JK</div>
+        <div class="post-info">
+          <div class="post-name">JakeKing09 <span class="post-badge" style="background:rgba(255,107,107,0.2);color:#ff6b6b;">🎮 GAMER</span></div>
+          <div class="post-meta">5 hours ago</div>
+        </div>
+      </div>
+      <div class="post-text">Hit level 50 in Gods of Now!! The shadow power is actually the most OP — teleport dash is insane 🌑💨 Anyone else playing this??</div>
+      <div class="post-media" style="background:linear-gradient(135deg,#0a0020,#1a0040);">🎮</div>
+      <div class="post-actions">
+        <button class="action-btn">❤️ 142</button>
+        <button class="action-btn">💬 38</button>
+        <button class="action-btn">🔁 12</button>
+        <button class="action-btn">🔖 Save</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar" style="background:#6bcb77;">ML</div>
+        <div class="post-info">
+          <div class="post-name">MariaLuna <span class="post-badge" style="background:rgba(107,203,119,0.2);color:#6bcb77;">🌿 NATURE KID</span></div>
+          <div class="post-meta">Yesterday</div>
+        </div>
+      </div>
+      <div class="post-text">Fun fact: Orcas are actually DOLPHINS not whales!! They're also one of the only animals besides humans that have culture passed down through generations 🐋 I wrote about it on KidsWiki!</div>
+      <div class="post-media" style="background:linear-gradient(135deg,#001a10,#002a20);">🐋</div>
+      <div class="post-actions">
+        <button class="action-btn">❤️ 89</button>
+        <button class="action-btn">💬 21</button>
+        <button class="action-btn">🔁 44</button>
+        <button class="action-btn">🔖 Save</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar" style="background:#4d96ff;">ZR</div>
+        <div class="post-info">
+          <div class="post-name">ZoeRocks <span class="post-badge" style="background:rgba(77,150,255,0.2);color:#4d96ff;">♿ ADVOCATE</span></div>
+          <div class="post-meta">2 days ago</div>
+        </div>
+      </div>
+      <div class="post-text">Having cerebral palsy doesn't stop me from doing ANYTHING. Today I finished my first drawing using adaptive tools and I'm SO proud 🎨 Kidstok is the first place I've ever felt completely included online 💙</div>
+      <div class="post-media" style="background:linear-gradient(135deg,#000a1a,#00102a);">🎨</div>
+      <div class="post-actions">
+        <button class="action-btn">❤️ 1,204</button>
+        <button class="action-btn">💬 312</button>
+        <button class="action-btn">🔁 891</button>
+        <button class="action-btn">🔖 Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="trending">
+    <div class="trending-title">TRENDING NOW</div>
+    <div class="trend"><div class="trend-tag">#GodsOfNow</div><div class="trend-count">2,841 posts</div></div>
+    <div class="trend"><div class="trend-tag">#KidForeverCards</div><div class="trend-count">1,204 posts</div></div>
+    <div class="trend"><div class="trend-tag">#KidsWiki</div><div class="trend-count">987 posts</div></div>
+    <div class="trend"><div class="trend-tag">#DisabledAndProud</div><div class="trend-count">4,512 posts</div></div>
+    <div class="trend"><div class="trend-tag">#RobloxClips</div><div class="trend-count">8,201 posts</div></div>
+    <div class="trend"><div class="trend-tag">#KidCreator</div><div class="trend-count">3,108 posts</div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety — Kidstok</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;color:#fff;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,15,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.logo{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;font-weight:600;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#fff;}
+.nav-btn{padding:8px 20px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.8rem;font-weight:900;color:#000;cursor:pointer;text-decoration:none;}
+.hero{text-align:center;padding:60px 40px 40px;background:linear-gradient(180deg,rgba(107,203,119,0.06) 0%,transparent 100%);}
+.hero-icon{font-size:4rem;margin-bottom:16px;}
+.hero h1{font-size:2.5rem;font-weight:900;margin-bottom:12px;}
+.hero h1 span{background:linear-gradient(135deg,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:#666;font-size:0.9rem;max-width:500px;margin:0 auto;}
+.main{max-width:900px;margin:0 auto;padding:40px;}
+.section-label{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:20px;}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:48px;}
+.rule{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;}
+.rule-icon{font-size:2rem;margin-bottom:12px;}
+.rule-title{font-size:0.9rem;font-weight:900;margin-bottom:8px;}
+.rule-desc{font-size:0.78rem;color:#666;line-height:1.7;}
+.rule.good{border-color:rgba(107,203,119,0.2);}
+.rule.bad{border-color:rgba(255,107,107,0.2);}
+.promise-box{background:rgba(107,203,119,0.06);border:1px solid rgba(107,203,119,0.2);border-radius:20px;padding:40px;text-align:center;margin-bottom:48px;}
+.promise-box h2{font-size:1.8rem;font-weight:900;margin-bottom:16px;}
+.promise-box p{color:#888;font-size:0.85rem;line-height:1.9;max-width:600px;margin:0 auto 24px;}
+.promise-list{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+.promise-item{display:flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:700;color:#6bcb77;}
+.report-box{background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.2);border-radius:20px;padding:40px;text-align:center;margin-bottom:48px;}
+.report-box h2{font-size:1.5rem;font-weight:900;margin-bottom:12px;}
+.report-box p{color:#888;font-size:0.85rem;line-height:1.8;margin-bottom:24px;}
+.report-btn{padding:14px 40px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.9rem;font-weight:900;color:#000;cursor:pointer;}
+.faq{margin-bottom:48px;}
+.faq-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 24px;margin-bottom:10px;cursor:pointer;}
+.faq-q{font-size:0.85rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+.faq-a{font-size:0.78rem;color:#666;line-height:1.7;margin-top:12px;display:none;}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-arrow{transition:transform 0.2s;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'">Kidstok</div>
+  <div class="nav-links">
+    <a href="feed.html">Feed</a>
+    <a href="wiki.html">Wiki</a>
+    <a href="explore.html">Explore</a>
+    <a href="safety.html" class="active">Safety</a>
+    <a href="signup.html" class="nav-btn">Join Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-icon">🛡️</div>
+  <h1>Your <span>Safety</span> Matters</h1>
+  <p>Kidstok is built to be the safest place on the internet for kids. Here's exactly how we protect you.</p>
+</div>
+
+<div class="main">
+  <div class="promise-box">
+    <h2>The Kidstok Promise</h2>
+    <p>We believe every kid deserves a safe, fun, and welcoming place online. That's why we built Kidstok with safety as the #1 priority — not ads, not data collection, not profit. Just kids being kids.</p>
+    <div class="promise-list">
+      <div class="promise-item">✅ Zero Ads</div>
+      <div class="promise-item">✅ No Strangers in DMs</div>
+      <div class="promise-item">✅ Real Humans Review Reports</div>
+      <div class="promise-item">✅ No Personal Data Sold</div>
+      <div class="promise-item">✅ Instant Bully Block</div>
+    </div>
+  </div>
+
+  <div class="section-label">THE RULES — SHORT VERSION</div>
+  <div class="rules-grid">
+    <div class="rule good">
+      <div class="rule-icon">✅</div>
+      <div class="rule-title">Be Kind Always</div>
+      <div class="rule-desc">Treat every kid on here the way you'd want to be treated. Encourage others, celebrate their work, and lift people up.</div>
+    </div>
+    <div class="rule good">
+      <div class="rule-icon">🎮</div>
+      <div class="rule-title">Share What You Make</div>
+      <div class="rule-desc">Post your games, art, videos, card designs, science facts, and ideas. This is YOUR platform to show the world what kids can do.</div>
+    </div>
+    <div class="rule good">
+      <div class="rule-icon">🆘</div>
+      <div class="rule-title">Report Bad Stuff</div>
+      <div class="rule-desc">If you see something that feels wrong, hit the Report button. Our safety team reviews every report within 24 hours.</div>
+    </div>
+    <div class="rule bad">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-title">No Bullying, Ever</div>
+      <div class="rule-desc">Mean comments, insults, harassment, or anything designed to make someone feel bad is an instant ban. Zero tolerance.</div>
+    </div>
+    <div class="rule bad">
+      <div class="rule-icon">🔒</div>
+      <div class="rule-title">No Personal Info</div>
+      <div class="rule-desc">Never share your real full name, school, address, or phone number in posts or comments. Your safety comes first.</div>
+    </div>
+    <div class="rule bad">
+      <div class="rule-icon">🤝</div>
+      <div class="rule-title">No Adult Strangers</div>
+      <div class="rule-desc">Adults are not allowed to message kids on Kidstok. If any adult contacts you here, report it immediately and tell a parent.</div>
+    </div>
+  </div>
+
+  <div class="section-label">FREQUENTLY ASKED QUESTIONS</div>
+  <div class="faq">
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Can adults see my profile? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Your profile is only visible to other verified kids on Kidstok. Adults cannot create accounts, and our age verification system blocks anyone 18 and over.</div>
+    </div>
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">What happens when I report someone? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">A real human on our safety team reviews every report within 24 hours. If the report is valid, the account gets a warning or an instant ban depending on how serious it is. You'll get a notification when it's resolved.</div>
+    </div>
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Is Kidstok free forever? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Yes! Kidstok is 100% free and will always be free. We don't run ads and don't sell your data. We're building this for kids, not for money.</div>
+    </div>
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">What if I see something that scares me? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">First, don't panic. Hit the Report button and describe what you saw. Then tell a trusted adult in your life — a parent, teacher, or guardian. You can also use the emergency report button below which gets reviewed in under 1 hour.</div>
+    </div>
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Are kids with disabilities welcome here? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">ABSOLUTELY. Kidstok was built with inclusion as a core value. Kids with autism, ADHD, Tourette syndrome, physical disabilities, and every other condition are not just welcome — they're celebrated here. Any bullying related to disability is an immediate permanent ban.</div>
+    </div>
+  </div>
+
+  <div class="report-box">
+    <h2>🚨 See Something Wrong?</h2>
+    <p>If someone is being mean, scary, or inappropriate — report it immediately. Every report goes straight to a real human on our safety team. You're not alone.</p>
+    <button class="report-btn" onclick="alert('Report form coming soon! For now, tell a trusted adult immediately.')">🚨 Make an Emergency Report</button>
+  </div>
+</div>
+
+<script>
+function toggle(el){
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
