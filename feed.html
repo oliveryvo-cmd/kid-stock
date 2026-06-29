@@ -24,18 +24,26 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
 .feed-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.08);}
 .tab{padding:12px 24px;font-size:0.8rem;font-weight:700;color:#555;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
 .tab.active{color:#ff6b6b;border-bottom-color:#ff6b6b;}
-.post{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;}
+.compose{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;display:none;}
+.compose-top{display:flex;gap:12px;margin-bottom:12px;}
+.compose-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#000;flex-shrink:0;}
+.compose textarea{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:0.85rem;padding:12px;outline:none;resize:none;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6;}
+.compose textarea::placeholder{color:#444;}
+.compose-actions{display:flex;justify-content:flex-end;gap:10px;}
+.post-btn-sm{padding:10px 24px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border:none;border-radius:50px;font-size:0.78rem;font-weight:900;color:#000;cursor:pointer;}
+.post-btn-sm:disabled{opacity:0.5;cursor:not-allowed;}
+.post{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .post-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#000;flex-shrink:0;}
 .post-info{flex:1;}
 .post-name{font-size:0.85rem;font-weight:900;}
 .post-meta{font-size:0.7rem;color:#444;}
-.post-badge{display:inline-block;font-size:0.5rem;letter-spacing:1px;padding:2px 8px;border-radius:50px;font-weight:900;margin-left:6px;}
 .post-text{font-size:0.85rem;color:#ccc;line-height:1.7;margin-bottom:14px;}
-.post-media{border-radius:12px;overflow:hidden;margin-bottom:14px;height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
 .post-actions{display:flex;gap:20px;}
 .action-btn{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:#555;cursor:pointer;transition:color 0.2s;background:none;border:none;}
 .action-btn:hover{color:#ff6b6b;}
+.action-btn.liked{color:#ff6b6b;}
 .trending{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;position:sticky;top:80px;}
 .trending-title{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:16px;}
 .trend{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;}
@@ -50,6 +58,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
 .s-handle{font-size:0.6rem;color:#444;}
 .s-follow{padding:5px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:50px;font-size:0.65rem;font-weight:900;color:#fff;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
 .s-follow:hover,.s-follow.following{background:linear-gradient(135deg,#ff6b6b,#ffd93d);color:#000;border-color:transparent;}
+.empty{text-align:center;padding:60px 20px;color:#444;}
+.login-prompt{background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.2);border-radius:16px;padding:24px;text-align:center;margin-bottom:16px;}
+.login-prompt p{font-size:0.85rem;color:#888;margin-bottom:14px;}
+.login-prompt a{padding:10px 24px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);border-radius:50px;font-size:0.8rem;font-weight:900;color:#000;text-decoration:none;}
 </style>
 </head>
 <body>
@@ -60,7 +72,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
     <a href="wiki.html">Wiki</a>
     <a href="explore.html">Explore</a>
     <a href="safety.html">Safety</a>
-    <a href="signup.html" class="nav-btn">Join Free</a>
+    <a href="signup.html" class="nav-btn" id="navBtn">Join Free</a>
   </div>
 </nav>
 
@@ -87,15 +99,33 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
       <div class="tab">New</div>
     </div>
 
-    <div style="text-align:center;padding:60px 20px;color:#444;">
-      <div style="font-size:3rem;margin-bottom:16px;">📭</div>
-      <div style="font-size:1rem;font-weight:900;margin-bottom:8px;color:#666;">No posts yet</div>
-      <div style="font-size:0.8rem;">Be the first to post something!</div>
+    <!-- Login prompt for guests -->
+    <div class="login-prompt" id="loginPrompt" style="display:none;">
+      <p>Log in to post and like things on Kidstok!</p>
+      <a href="login.html">Log In</a>
+    </div>
+
+    <!-- Compose box for logged in users -->
+    <div class="compose" id="composeBox">
+      <div class="compose-top">
+        <div class="compose-avatar" id="composeAvatar" style="background:#ff6b6b;">?</div>
+        <textarea id="postText" rows="3" placeholder="What's on your mind? Share something cool!"></textarea>
+      </div>
+      <div class="compose-actions">
+        <button class="post-btn-sm" id="postBtn" onclick="submitPost()">🚀 Post</button>
+      </div>
+    </div>
+
+    <!-- Posts feed -->
+    <div id="postsContainer">
+      <div class="empty">
+        <div style="font-size:3rem;margin-bottom:16px;">📭</div>
+        <div style="font-size:1rem;font-weight:900;margin-bottom:8px;color:#666;">Loading posts...</div>
+      </div>
     </div>
   </div>
 
   <!-- RIGHT SIDEBAR -->
-
   <div>
     <div class="trending" style="margin-bottom:16px;">
       <div class="trending-title">WHO TO FOLLOW</div>
@@ -131,16 +161,144 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
     </div>
   </div>
 </div>
-<script>
-function toggleFollow(btn){
-  if(btn.classList.contains('following')){
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, arrayUnion, arrayRemove, orderBy, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBF8NZvpjz8blZi4LL-Q7n-Q3Je73mZ5mo",
+  authDomain: "kid-stock-7a377.firebaseapp.com",
+  projectId: "kid-stock-7a377",
+  storageBucket: "kid-stock-7a377.firebasestorage.app",
+  messagingSenderId: "153069846242",
+  appId: "1:153069846242:web:bdae0c7bb120e9245228bb"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const colors = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff9f43','#a29bfe'];
+
+let currentUser = null;
+
+function getColor(name) {
+  return colors[(name || 'a').charCodeAt(0) % colors.length];
+}
+
+function timeAgo(ts) {
+  if(!ts) return 'just now';
+  const now = Date.now();
+  const diff = now - ts.toMillis();
+  const mins = Math.floor(diff/60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins/60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs/24) + 'd ago';
+}
+
+function renderPost(id, data) {
+  const username = data.username || 'Kid';
+  const initials = username.slice(0,2).toUpperCase();
+  const color = getColor(username);
+  const liked = currentUser && data.likes && data.likes.includes(currentUser.uid);
+  const likeCount = data.likes ? data.likes.length : 0;
+
+  return `<div class="post" id="post-${id}">
+    <div class="post-header">
+      <div class="avatar" style="background:${color};">${initials}</div>
+      <div class="post-info">
+        <div class="post-name">${username}</div>
+        <div class="post-meta">${timeAgo(data.createdAt)}</div>
+      </div>
+    </div>
+    <div class="post-text">${data.text}</div>
+    <div class="post-actions">
+      <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${id}', this)">❤️ ${likeCount}</button>
+      <button class="action-btn">💬 0</button>
+      <button class="action-btn">🔁 Share</button>
+    </div>
+  </div>`;
+}
+
+// Load posts in real time
+const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+onSnapshot(q, (snapshot) => {
+  const container = document.getElementById('postsContainer');
+  if(snapshot.empty) {
+    container.innerHTML = `<div class="empty">
+      <div style="font-size:3rem;margin-bottom:16px;">📭</div>
+      <div style="font-size:1rem;font-weight:900;margin-bottom:8px;color:#666;">No posts yet</div>
+      <div style="font-size:0.8rem;">Be the first to post something!</div>
+    </div>`;
+    return;
+  }
+  container.innerHTML = snapshot.docs.map(d => renderPost(d.id, d.data())).join('');
+});
+
+// Auth state
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  if(user) {
+    const username = user.displayName || user.email.split('@')[0];
+    const initials = username.slice(0,2).toUpperCase();
+    const color = getColor(username);
+    document.getElementById('composeAvatar').textContent = initials;
+    document.getElementById('composeAvatar').style.background = color;
+    document.getElementById('composeBox').style.display = 'block';
+    document.getElementById('loginPrompt').style.display = 'none';
+    document.getElementById('navBtn').textContent = username;
+    document.getElementById('navBtn').href = 'profile.html';
+  } else {
+    document.getElementById('loginPrompt').style.display = 'block';
+    document.getElementById('composeBox').style.display = 'none';
+  }
+});
+
+window.submitPost = async function() {
+  if(!currentUser) return;
+  const text = document.getElementById('postText').value.trim();
+  if(!text) return;
+  const btn = document.getElementById('postBtn');
+  btn.disabled = true;
+  btn.textContent = 'Posting...';
+  try {
+    await addDoc(collection(db, 'posts'), {
+      text,
+      username: currentUser.displayName || currentUser.email.split('@')[0],
+      uid: currentUser.uid,
+      likes: [],
+      createdAt: serverTimestamp()
+    });
+    document.getElementById('postText').value = '';
+  } catch(e) { console.error(e); }
+  btn.disabled = false;
+  btn.textContent = '🚀 Post';
+};
+
+window.toggleLike = async function(postId, btn) {
+  if(!currentUser) { window.location.href='login.html'; return; }
+  const ref = doc(db, 'posts', postId);
+  const liked = btn.classList.contains('liked');
+  if(liked) {
+    await updateDoc(ref, { likes: arrayRemove(currentUser.uid) });
+  } else {
+    await updateDoc(ref, { likes: arrayUnion(currentUser.uid) });
+  }
+};
+
+window.toggleFollow = function(btn) {
+  if(btn.classList.contains('following')) {
     btn.classList.remove('following');
-    btn.textContent='Follow';
+    btn.textContent = 'Follow';
   } else {
     btn.classList.add('following');
-    btn.textContent='Following ✓';
+    btn.textContent = 'Following ✓';
   }
-}
+};
 </script>
 </body>
 </html>
