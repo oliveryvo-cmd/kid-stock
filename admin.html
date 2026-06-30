@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kidstok</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;color:#fff;min-height:100vh;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,15,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.logo{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.admin-badge{padding:6px 16px;background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.4);border-radius:50px;font-size:0.7rem;font-weight:900;color:#ff6b6b;letter-spacing:2px;}
+.main{max-width:900px;margin:0 auto;padding:40px;}
+.section-title{font-size:0.6rem;letter-spacing:3px;color:#555;margin-bottom:16px;margin-top:32px;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;text-align:center;}
+.stat-num{font-size:2rem;font-weight:900;margin-bottom:4px;}
+.stat-label{font-size:0.65rem;color:#555;letter-spacing:2px;}
+.post-row{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px;}
+.post-row-info{flex:1;}
+.post-row-user{font-size:0.75rem;font-weight:900;color:#ffd93d;margin-bottom:4px;}
+.post-row-text{font-size:0.8rem;color:#aaa;line-height:1.5;}
+.post-row-time{font-size:0.65rem;color:#444;margin-top:4px;}
+.delete-btn{padding:8px 16px;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);border-radius:50px;font-size:0.7rem;font-weight:900;color:#ff6b6b;cursor:pointer;white-space:nowrap;}
+.delete-btn:hover{background:rgba(255,107,107,0.3);}
+.no-access{text-align:center;padding:100px 20px;}
+.no-access h2{font-size:1.5rem;font-weight:900;margin-bottom:8px;color:#ff6b6b;}
+.loading{text-align:center;padding:60px;color:#444;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'">Kidstok</div>
+  <div class="admin-badge">🔒 ADMIN PANEL</div>
+</nav>
+
+<div id="noAccess" class="no-access" style="display:none;">
+  <div style="font-size:3rem;margin-bottom:16px;">🚫</div>
+  <h2>Access Denied</h2>
+  <p style="color:#555;">You don't have admin access.</p>
+</div>
+
+<div id="loading" class="loading">Loading...</div>
+
+<div id="adminContent" style="display:none;">
+  <div class="main">
+    <div style="font-size:1.4rem;font-weight:900;margin-bottom:4px;">Admin Panel</div>
+    <div style="font-size:0.8rem;color:#555;margin-bottom:24px;">Manage Kidstok posts and users</div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num" id="totalPosts" style="color:#ff6b6b;">—</div>
+        <div class="stat-label">TOTAL POSTS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="totalUsers" style="color:#ffd93d;">—</div>
+        <div class="stat-label">TOTAL USERS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="totalLikes" style="color:#6bcb77;">—</div>
+        <div class="stat-label">TOTAL LIKES</div>
+      </div>
+    </div>
+
+    <div class="section-title">ALL POSTS</div>
+    <div id="postsContainer"><div class="loading">Loading posts...</div></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, deleteDoc, doc, orderBy, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const ADMIN_UID = "Zzdw9oNudqS2WiBgQJ6bK5TYhRD3";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBF8NZvpjz8blZi4LL-Q7n-Q3Je73mZ5mo",
+  authDomain: "kid-stock-7a377.firebaseapp.com",
+  projectId: "kid-stock-7a377",
+  storageBucket: "kid-stock-7a377.firebasestorage.app",
+  messagingSenderId: "153069846242",
+  appId: "1:153069846242:web:bdae0c7bb120e9245228bb"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+function timeAgo(ts) {
+  if(!ts) return 'just now';
+  const now = Date.now();
+  const diff = now - ts.toMillis();
+  const mins = Math.floor(diff/60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins/60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs/24) + 'd ago';
+}
+
+onAuthStateChanged(auth, async user => {
+  document.getElementById('loading').style.display = 'none';
+  if(!user || user.uid !== ADMIN_UID) {
+    document.getElementById('noAccess').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('adminContent').style.display = 'block';
+
+  const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, (snapshot) => {
+    const posts = snapshot.docs;
+    document.getElementById('totalPosts').textContent = posts.length;
+    let totalLikes = 0;
+    posts.forEach(d => { totalLikes += (d.data().likes || []).length; });
+    document.getElementById('totalLikes').textContent = totalLikes;
+    document.getElementById('totalUsers').textContent = '—';
+
+    const container = document.getElementById('postsContainer');
+    if(posts.length === 0) {
+      container.innerHTML = '<div style="color:#444;font-size:0.85rem;padding:20px;">No posts yet.</div>';
+      return;
+    }
+    container.innerHTML = posts.map(d => {
+      const data = d.data();
+      return `<div class="post-row" id="row-${d.id}">
+        <div class="post-row-info">
+          <div class="post-row-user">@${data.username || 'unknown'}</div>
+          <div class="post-row-text">${data.text}</div>
+          <div class="post-row-time">${timeAgo(data.createdAt)} · ❤️ ${(data.likes||[]).length} likes</div>
+        </div>
+        <button class="delete-btn" onclick="deletePost('${d.id}')">🗑️ Delete</button>
+      </div>`;
+    }).join('');
+  });
+});
+
+window.deletePost = async function(postId) {
+  if(!confirm('Delete this post?')) return;
+  await deleteDoc(doc(db, 'posts', postId));
+};
+</script>
+</body>
+</html>
